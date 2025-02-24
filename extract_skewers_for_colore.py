@@ -7,7 +7,7 @@ import healpy
 import astropy.constants as const
 from astropy.table import Table
 from multiprocessing import Pool, cpu_count
-import input_params as inpars
+#import input_params as inpars
 
 # **********************************************
 # **********************************************
