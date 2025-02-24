@@ -2,6 +2,7 @@ import numpy as np
 from numba import njit, prange
 import os
 import time
+#import bias_parameters_lya as biaspars
 import astropy.io.fits as fits
 import healpy
 import astropy.constants as const
@@ -38,8 +39,8 @@ vx_filename = input_dir + 'VEULxOM0.314OL0.686G1800V10000.0.dat'
 vy_filename = input_dir + 'VEULyOM0.314OL0.686G1800V10000.0.dat'
 vz_filename = input_dir + 'VEULzOM0.314OL0.686G1800V10000.0.dat'
 
-zarr_filename = input_dir + 'zarr.dat'
-darr_filename = input_dir + 'dcomOM0.314OL0.686.dat'
+zarr_filename = 'zarr.DAT'
+darr_filename = 'dcomOM0.314OL0.686.DAT'
 
 nside = 16
 pixmax = 3072
@@ -304,7 +305,8 @@ dec = catfits['DEC']
 zz = catfits['Z']
 mockid = catfits['MOCKID']
 
-# Read density and velocity field                                                                                                                                               
+# Read density and velocity field
+print('Read density and velocity fields ...')              
 delta = np.fromfile(open(delta_filename, 'r'), dtype=np.float32)
 delta = np.reshape(delta, (ngrid,ngrid,ngrid))
 
@@ -314,6 +316,7 @@ vz = np.fromfile(open(vz_filename, 'r'), dtype=np.float32)
 vx = np.reshape(vx, (ngrid,ngrid,ngrid))
 vy = np.reshape(vy, (ngrid,ngrid,ngrid))
 vz = np.reshape(vz, (ngrid,ngrid,ngrid))
+print('... done!')
 
 # Cut the QSO positions - keep only QSOs relevant for lya                                                                                                       
 cx = cx[np.logical_and(zz>zmin, zz<zmax)]
